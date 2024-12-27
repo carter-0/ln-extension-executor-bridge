@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version        = '1.0.0'
   s.summary        = 'React Native bridge for LNExtensionExecutor'
   s.description    = 'A React Native bridge for LNExtensionExecutor, allowing direct execution of iOS app extensions'
-  s.author         = ''
+  s.author         = 'carter-0'
   s.homepage       = 'https://docs.expo.dev/modules/'
   s.platforms      = {
     :ios => '15.1'
