@@ -7,7 +7,7 @@ An Expo native module wrapping [LNExtensionExecutor](https://github.com/LeoNatan
 ## Adding to Your Project
 
 1. Create a new Expo native module in your app
-    - `npx create-expo-module ln-extension-executor-bridge`
+    - `npx create-expo-module@latest --local ln-extension-executor-bridge`
 
 2. Delete all files in `modules/ln-extension-executor-bridge`:
     - `rm -rf modules/ln-extension-executor-bridge/*`
