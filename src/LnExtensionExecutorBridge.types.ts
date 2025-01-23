@@ -17,6 +17,5 @@ export type ExtensionItem = {
 
 export type LnExtensionExecutorBridgeModule = {
   executeExtension(context: ExtensionContext): Promise<ExtensionResult>;
-  listExtensions(): Promise<ExtensionItem[]>;
   isExtensionAvailable(bundleIdentifier: string): Promise<boolean>;
 };
