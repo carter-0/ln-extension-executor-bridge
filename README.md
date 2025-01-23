@@ -47,18 +47,6 @@ Returns:
   - `completed`: Boolean indicating if execution completed
   - `returnItems`: Array of items returned from the extension
 
-#### listExtensions
-Lists all available extensions.
-
-```typescript
-async function listExtensions(): Promise<ExtensionItem[]>
-```
-
-Returns array of `ExtensionItem` objects containing:
-- `bundleIdentifier`: Extension's bundle ID
-- `name`: Extension name
-- `extensionPointIdentifier`: Extension point ID
-
 #### isExtensionAvailable
 Checks if an extension is available.
 
@@ -78,9 +66,6 @@ Returns boolean indicating availability.
 const available = await LnExtensionExecutorBridgeModule.isExtensionAvailable(
   "com.burbn.instagram.shareextension"
 );
-
-// List all extensions
-const extensions = await LnExtensionExecutorBridgeModule.listExtensions();
 
 // Execute an extension
 const result = await LnExtensionExecutorBridgeModule.executeExtension({

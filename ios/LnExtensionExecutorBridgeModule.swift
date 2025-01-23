@@ -72,34 +72,6 @@ public class LnExtensionExecutorBridgeModule: Module {
             }
         }
         
-        AsyncFunction("listExtensions") { (promise: Promise) in
-            let shareExtensionPoint = "com.apple.share-services"
-            
-            // Get all installed app bundles
-            guard let installedApps = Bundle.main.bundleIdentifier.flatMap({ Bundle(identifier: $0) }) else {
-                promise.reject("ERR_LIST_FAILED", "Failed to get list of extensions")
-                return
-            }
-            
-            // Get the extension info from Info.plist
-            guard let extensionsInfo = installedApps.infoDictionary?["NSExtension"] as? [String: Any],
-                  let extensionPoint = extensionsInfo["NSExtensionPointIdentifier"] as? String,
-                  extensionPoint == shareExtensionPoint else {
-                promise.resolve([]) // No share extensions found
-                return
-            }
-            
-            let result: [[String: Any]] = [
-                [
-                    "bundleIdentifier": installedApps.bundleIdentifier ?? "",
-                    "name": installedApps.infoDictionary?["CFBundleDisplayName"] as? String ?? "",
-                    "extensionPointIdentifier": shareExtensionPoint
-                ]
-            ]
-            
-            promise.resolve(result)
-        }
-        
         AsyncFunction("isExtensionAvailable") { (bundleIdentifier: String, promise: Promise) in
             do {
                 // Try to create an executor with the bundle ID - if it succeeds, the extension is available
