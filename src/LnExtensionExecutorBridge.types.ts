@@ -1,7 +1,7 @@
 export type ExtensionContext = {
   bundleIdentifier: string;
   extensionPointIdentifier?: string;
-  activityItems?: any[];
+  activityItems?: ActivityItem[];
 };
 
 export type ExtensionResult = {
@@ -13,6 +13,11 @@ export type ExtensionItem = {
   bundleIdentifier: string;
   name: string;
   extensionPointIdentifier: string;
+};
+
+export type ActivityItem = {
+  type: 'string' | 'file';
+  value: string | URL;
 };
 
 export type LnExtensionExecutorBridgeModule = {
