@@ -20,21 +20,31 @@ public class LnExtensionExecutorBridgeModule: Module {
                 return
             }
             
-            guard let rawActivityItems = context["activityItems"] as? [Any] else {
-                promise.reject("ERR_INVALID_ACTIVITY_ITEMS", "Activity items must be an array")
+            guard let rawActivityItems = context["activityItems"] as? [[String: Any]] else {
+                promise.reject("ERR_INVALID_ACTIVITY_ITEMS", "Activity items must be an array of objects with type and value")
                 return
             }
             
             let activityItems = rawActivityItems.compactMap { item -> Any? in
-                if let str = item as? String { return str }
-                if let url = item as? URL { return url }
-                if let data = item as? Data { return data }
-                if let image = item as? UIImage { return image }
-                return nil
+                guard let type = item["type"] as? String, let value = item["value"] else {
+                    return nil
+                }
+                
+                switch type {
+                case "string":
+                    return value as? String
+                case "file":
+                    if let urlString = value as? String, let url = URL(string: urlString) {
+                        return url
+                    }
+                    return nil
+                default:
+                    return nil
+                }
             }
             
             if activityItems.isEmpty && !rawActivityItems.isEmpty {
-                promise.reject("ERR_INVALID_ACTIVITY_ITEMS", "Activity items must be of type String, URL, Data, or UIImage")
+                promise.reject("ERR_INVALID_ACTIVITY_ITEMS", "Activity items must be of type string or file")
                 return
             }
             
